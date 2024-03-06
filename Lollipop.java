@@ -21,24 +21,40 @@ public class Lollipop
     {
         // initialise instance variables
         UI.initialise();     // bring up the GUI
-        UI.addButton("Draw", this::doDrawLollipop);   // call the drawLollipop method
+        UI.addButton("Draw", this::drawLollipops);   // call the drawLollipop method
         UI.addButton("Quit", UI::quit);
     }
 
     /**
      * Draw a lollipop
      */
-    public void doDrawLollipop() {
+    public void doDrawLollipop(double x, double y, double size, double stick) {
         // declare variables
+        double left = x - size/2;   // left most pos of lollipop
+        double top = y - size/2;    // top most pos of lollipop
+        double bottom = y + stick;  // bottom most pos of lollipop
+        
         
         // draw the stick
         UI.setColor(Color.black);
-        UI.setLineWidth(10.0);
-        UI.drawLine(XPOS, YPOS, XPOS, YPOS+STICK);
+        UI.setLineWidth(size/8.0);  // stick 1/8th size of lollipop
+        UI.drawLine(x, y, x, bottom);
         
         // draw the lollipop
         UI.setLineWidth(1.0);
         UI.setColor(Color.red);
-        UI.fillOval(XPOS-SIZE/2, YPOS-SIZE/2, SIZE, SIZE);
+        UI.fillOval(left, top, size, size);
+    }
+    
+    /**
+     * Calls the doDrawLollipop method with a number of different parameters
+     * 
+     */
+    public void drawLollipops() {
+        this.doDrawLollipop(300, 180, 80, 200);
+        this.doDrawLollipop(100, 50, 20, 20);
+        this.doDrawLollipop(200, 100, 50, 100);
+        this.doDrawLollipop(400, 150, 30, 50);
+        
     }
 }
